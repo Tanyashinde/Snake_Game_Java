@@ -3,11 +3,13 @@ package snake_game;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-public class GamePanel extends JPanel implements Runnable{
+public class GamePanel extends JPanel implements Runnable,KeyListener{
 	
 	public static final int width=500, height=500;
 	
@@ -49,6 +51,20 @@ public class GamePanel extends JPanel implements Runnable{
 			snake.add(b);
 		}
 		ticks++;
+		if(ticks>250000) {
+			if(right) xcor++;
+			if(left) xcor--;
+			if(up) ycor--;
+			if(down) ycor++;
+			
+			ticks=0;
+			b= new BodyPart(xcor, ycor, size);
+			snake.add(b);
+			
+			if(snake.size()>size) {
+				snake.remove(0);
+			}
+		}
 	}
 	public void paint(Graphics g) {
 		g.clearRect(0,0, width,height);
@@ -73,6 +89,24 @@ public class GamePanel extends JPanel implements Runnable{
 			tick();
 			repaint();
 		}
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
 		
 	}
 }
