@@ -26,7 +26,9 @@ public class GamePanel extends JPanel implements Runnable,KeyListener{
 	private boolean right= true,left=false,up=false,down=false;
 
 	public GamePanel() {
+		setFocusable(true);
 		setPreferredSize(new Dimension(width,height));
+		addKeyListener(this);
 		snake= new ArrayList<BodyPart>();
 		start();
 	}
@@ -93,9 +95,28 @@ public class GamePanel extends JPanel implements Runnable,KeyListener{
 	}
 
 	@Override
-	public void keyPressed(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void keyPressed(KeyEvent e) {
+		int key= e.getKeyCode();
+		if(key== KeyEvent.VK_RIGHT && !left) {
+			right= true;
+			up=false;
+			down= false;
+		}
+		if(key== KeyEvent.VK_LEFT && !right) {
+			left= true;
+			up=false;
+			down= false;
+		}
+		if(key== KeyEvent.VK_UP && !down) {
+			up=true;
+			left= false;
+			right= false;
+		}
+		if(key== KeyEvent.VK_DOWN && !up) {
+			down =true;
+			left= false;
+			right= false;
+		}
 	}
 
 	@Override
